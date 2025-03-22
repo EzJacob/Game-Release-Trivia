@@ -1,8 +1,10 @@
-from flask import Flask, request, jsonify
-from flask_cors import CORS  # Import CORS
+from flask import Flask, request, jsonify, send_file
+from flask_cors import CORS
 import sqlite3
 import random
 import ast
+import os
+
 
 app = Flask(__name__)
 
@@ -31,12 +33,17 @@ def add_sample_data():
     try:
         conn.executemany('INSERT INTO games (name, release_date, image_url) VALUES (?, ?, ?)', sample_games)
         conn.commit()
-    except sqlite3.IntegrityError:
-        pass  # Ignore duplicate entries
+    except sqlite3.IntegrityError as e:
+        print(f"Error inserting data: {e}")
     conn.close()
 
 # Add sample data on startup
 add_sample_data()
+
+# Serve index.html from the same folder
+@app.route('/')
+def home():
+    return send_file('index.html')
 
 @app.route('/games', methods=['GET'])
 def get_two_random_games():
@@ -65,17 +72,23 @@ def get_game_date():
         return jsonify({'error': 'Game not found'}), 404
 
 
-@app.route('/print-db', methods=['GET'])
-def print_db():
-    conn = get_db_connection()
-    games = conn.execute('SELECT id, name, release_date, image_url FROM games').fetchall()
-    conn.close()
+#@app.route('/print-db', methods=['GET'])
+#def print_db():
+    #conn = get_db_connection()
+    #games = conn.execute('SELECT id, name, release_date, image_url FROM games').fetchall()
+    #conn.close()
 
-    if games:
-        return jsonify([dict(game) for game in games])
-    else:
-        return jsonify({'error': 'No games found in the database'}), 404
+    #if games:
+        #return jsonify([dict(game) for game in games])
+    #else:
+        #return jsonify({'error': 'No games found in the database'}), 404
 
+
+# Serve the logo image from the same directory as app.py
+@app.route('/logo.png', methods=['GET'])
+def serve_logo():
+    # Serve the 'logo.png' image directly
+    return send_file('logo.png', mimetype='image/png')
 
 
 if __name__ == '__main__':
