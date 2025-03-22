@@ -91,5 +91,5 @@ def serve_logo():
     return send_file('logo.png', mimetype='image/png')
 
 
-if __name__ == '__main__':
-    app.run(debug=True)
+#if __name__ == '__main__':
+    #app.run(debug=True)
