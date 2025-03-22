@@ -230,13 +230,13 @@
         document.getElementById('score').innerText = score;
       }
 
-// Grab elements for styling
-  const game1Title = document.getElementById('game1-title');
-  const game2Title = document.getElementById('game2-title');
-  const game1DateElement = document.getElementById('game1-date');
-  const game2DateElement = document.getElementById('game2-date');
+      // Grab elements for styling
+      const game1Title = document.getElementById('game1-title');
+      const game2Title = document.getElementById('game2-title');
+      const game1DateElement = document.getElementById('game1-date');
+      const game2DateElement = document.getElementById('game2-date');
 
-if (game1Date < game2Date) {
+      if (game1Date < game2Date) {
           game1Title.style.color = 'green'; // Correct answer (left)
           game1DateElement.style.color = 'green';
           game2Title.style.color = 'red'; // Incorrect answer (right)
@@ -269,6 +269,13 @@ if (game1Date < game2Date) {
         game2Title.style.color = ''; // Reset to default
         game1DateElement.style.color = ''; // Reset to default
         game2DateElement.style.color = ''; // Reset to default
+
+        // Reset hover effect by removing and re-adding the class
+        document.querySelectorAll('.game-item').forEach(item => {
+        item.classList.remove('game-item'); // Remove the class
+        void item.offsetWidth; // Force reflow (trick to apply changes)
+        item.classList.add('game-item'); // Re-add the class
+        });
 
         if (!correct) {
           endGame();
