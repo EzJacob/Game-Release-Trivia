@@ -201,11 +201,31 @@
       game1 = games[index1];
       game2 = games[index2];
 
-      document.getElementById('game1-img').src = game1.image_url;
+      
+      const game1Img = document.getElementById('game1-img');
+      const game2Img = document.getElementById('game2-img');
+  
+      // Create temporary images for preloading
+      let tempImg1 = new Image();
+      let tempImg2 = new Image();
+  
+      tempImg1.src = game1.image_url;
+      tempImg2.src = game2.image_url;
+  
+      // Only update the UI when both images are fully loaded
+      tempImg1.onload = () => {
+          game1Img.src = game1.image_url;
+      };
+      
+      tempImg2.onload = () => {
+          game2Img.src = game2.image_url;
+      };
+
+      //document.getElementById('game1-img').src = game1.image_url;
       document.getElementById('game1-title').innerText = game1.name;
       document.getElementById('game1-date').classList.add('hidden');
 
-      document.getElementById('game2-img').src = game2.image_url;
+      //document.getElementById('game2-img').src = game2.image_url;
       document.getElementById('game2-title').innerText = game2.name;
       document.getElementById('game2-date').classList.add('hidden');
 
