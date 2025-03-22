@@ -16,6 +16,29 @@
       overflow: hidden;
     }
 
+    .correct-indicator, .incorrect-indicator {
+      font-size: 100px;
+      font-weight: bold;
+      text-align: center;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-family: Arial, sans-serif;
+      margin: 20px auto;
+    }
+  
+    .correct-indicator {
+      background-color: green;
+    }
+  
+    .incorrect-indicator {
+      background-color: red;
+    }
+
     .hidden { display: none; }
 
     .game-container {
@@ -244,11 +267,18 @@
       const correct = (isLeft && game1Date <= game2Date) || (!isLeft && game2Date <= game1Date);
       const resultMessage = correct ? "Correct!" : "Incorrect!";
       const resultClass = correct ? "correct" : "incorrect";
+      const resultContainer = document.getElementById('result');
 
       if (correct) {
         score++;
         document.getElementById('score').innerText = score;
+        resultContainer.innerHTML = `<div class="correct-indicator">✔</div>`;
+      } else {
+        resultContainer.innerHTML = `<div class="incorrect-indicator">✖</div>`;
       }
+
+      // Show result
+      resultContainer.classList.remove('hidden');
 
       // Grab elements for styling
       const game1Title = document.getElementById('game1-title');
@@ -276,10 +306,12 @@
       }
 
 
-      document.getElementById('result').innerText = resultMessage;
+      //document.getElementById('result').innerText = resultMessage;
       document.getElementById('result').classList.add(resultClass);
 
       setTimeout(() => {
+        resultContainer.classList.add('hidden');
+        
         document.getElementById('game1-date').classList.add('hidden');
         document.getElementById('game2-date').classList.add('hidden');
         document.getElementById('result').innerText = "";
@@ -302,7 +334,7 @@
         } else {
           getRandomGames();
         }
-      }, 3000);
+      }, 2000);
     }
 
     function endGame() {
