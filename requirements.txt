@@ -1,0 +1,4 @@
+Flask
+flask-cors
+gunicorn
+sqlite3  # (Optional, since it's built into Python, but safe to include)
