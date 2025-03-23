@@ -62,10 +62,17 @@
 
     /* Mobile-specific styles to remove hover effect */
     @media (max-width: 768px) {
+      
       .game-item:hover {
         transform: none;
         box-shadow: none;
       }
+      
+      /* Move indicators up for mobile */
+      .correct-indicator, .incorrect-indicator {
+        top: 40%; /* Move the indicators higher up */
+      }
+      
     }
 
     img {
