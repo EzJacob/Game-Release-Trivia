@@ -52,7 +52,9 @@
     .game-item {
       width: 40%;
       cursor: pointer;
-      transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+      transition: opacity 2s ease-in-out, transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+      //transition: opacity 0.5s ease-in-out;
+      opacity: 1; /* Ensure full opacity when displayed */
     }
 
     .game-item:hover {
@@ -227,49 +229,57 @@
       getRandomGames();
     }
 
-    async function getRandomGames() {
-      await fetchGames();
-      if (games.length < 2) return;
-      
-      let index1 = Math.floor(Math.random() * games.length);
-      let index2;
-      do {
-        index2 = Math.floor(Math.random() * games.length);
-      } while (index1 === index2);
+async function getRandomGames() {
+  await fetchGames();
+  if (games.length < 2) return;
 
-      game1 = games[index1];
-      game2 = games[index2];
+  let index1 = Math.floor(Math.random() * games.length);
+  let index2;
+  do {
+    index2 = Math.floor(Math.random() * games.length);
+  } while (index1 === index2);
 
-      
-      const game1Img = document.getElementById('game1-img');
-      const game2Img = document.getElementById('game2-img');
+  game1 = games[index1];
+  game2 = games[index2];
+
+  const game1Img = document.getElementById('game1-img');
+  const game2Img = document.getElementById('game2-img');
+  const game1Container = document.getElementById('game1');
+  const game2Container = document.getElementById('game2');
+
+  // Add fade-out effect
+  //game1Container.style.opacity = "0";
+  //game2Container.style.opacity = "0";
   
-      // Create temporary images for preloading
-      let tempImg1 = new Image();
-      let tempImg2 = new Image();
-  
-      tempImg1.src = game1.image_url;
-      tempImg2.src = game2.image_url;
-  
-      // Only update the UI when both images are fully loaded
-      tempImg1.onload = () => {
-          game1Img.src = game1.image_url;
-      };
-      
-      tempImg2.onload = () => {
-          game2Img.src = game2.image_url;
-      };
 
-      //document.getElementById('game1-img').src = game1.image_url;
-      document.getElementById('game1-title').innerText = game1.name;
-      document.getElementById('game1-date').classList.add('hidden');
+  // Create temporary images for preloading
+  let tempImg1 = new Image();
+  let tempImg2 = new Image();
 
-      //document.getElementById('game2-img').src = game2.image_url;
-      document.getElementById('game2-title').innerText = game2.name;
-      document.getElementById('game2-date').classList.add('hidden');
+  tempImg1.src = game1.image_url;
+  tempImg2.src = game2.image_url;
 
-      document.getElementById('result').innerText = '';
-    }
+  tempImg1.onload = () => {
+    game1Img.src = game1.image_url;
+    document.getElementById('game1-title').innerText = game1.name;
+    document.getElementById('game1-date').classList.add('hidden');
+
+    // Fade in after image is fully loaded
+    setTimeout(() => { game1Container.style.opacity = "1"; }, 500);
+  };
+
+  tempImg2.onload = () => {
+    game2Img.src = game2.image_url;
+    document.getElementById('game2-title').innerText = game2.name;
+    document.getElementById('game2-date').classList.add('hidden');
+
+    setTimeout(() => { game2Container.style.opacity = "1"; }, 500);
+  };
+
+  document.getElementById('result').innerText = '';
+}
+
+
 
     async function guess(isLeft) {
       const game1Date = await fetchReleaseDate(game1.name);
@@ -289,6 +299,14 @@
         score++;
         document.getElementById('score').innerText = score;
         resultContainer.innerHTML = `<div class="correct-indicator">✔</div>`;
+
+        const game1Container = document.getElementById('game1');
+        const game2Container = document.getElementById('game2');
+      
+        // Add fade-out effect
+        game1Container.style.opacity = "0";
+        game2Container.style.opacity = "0";
+
       } else {
         resultContainer.innerHTML = `<div class="incorrect-indicator">✖</div>`;
       }
