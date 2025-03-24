@@ -38,7 +38,7 @@ def add_sample_data():
     conn.close()
 
 # Add sample data on startup
-add_sample_data()
+#add_sample_data()
 
 # Serve index.html from the same folder
 @app.route('/')
