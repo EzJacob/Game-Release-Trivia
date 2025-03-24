@@ -186,6 +186,7 @@
     let game1, game2;
     let score = 0;
     let bestScore = localStorage.getItem('bestScore') || 0;
+    let canGuess = true;
 
     document.getElementById('best-score-display').innerText = `Best score: ${bestScore}`;
 
@@ -225,7 +226,8 @@
       document.getElementById('game2-date').innerText = "";
       document.getElementById('result').innerText = "";
 
-      await fetchGames();
+      cannGuess = true;
+      
       getRandomGames();
     }
 
@@ -246,11 +248,6 @@ async function getRandomGames() {
   const game2Img = document.getElementById('game2-img');
   const game1Container = document.getElementById('game1');
   const game2Container = document.getElementById('game2');
-
-  // Add fade-out effect
-  //game1Container.style.opacity = "0";
-  //game2Container.style.opacity = "0";
-  
 
   // Create temporary images for preloading
   let tempImg1 = new Image();
@@ -277,11 +274,14 @@ async function getRandomGames() {
   };
 
   document.getElementById('result').innerText = '';
+  canGuess = true;
 }
 
 
 
     async function guess(isLeft) {
+      if (canGuess == false) {return;}
+      canGuess = false;
       const game1Date = await fetchReleaseDate(game1.name);
       const game2Date = await fetchReleaseDate(game2.name);
 
