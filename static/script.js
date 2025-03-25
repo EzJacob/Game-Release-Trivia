@@ -130,7 +130,7 @@ async function getRandomGames() {
       if (correct) {
         score++;
         document.getElementById('score').innerText = score;
-        resultContainer.innerHTML = `<div class="correct-indicator">✔</div>`;
+        resultContainer.innerHTML = `<span class="correct-indicator">✔</span>`;
 
         const game1Container = document.getElementById('game1');
         const game2Container = document.getElementById('game2');
@@ -140,7 +140,7 @@ async function getRandomGames() {
         game2Container.style.opacity = "0";
 
       } else {
-        resultContainer.innerHTML = `<div class="incorrect-indicator">✖</div>`;
+        resultContainer.innerHTML = `<span class="incorrect-indicator">✖</span>`;
       }
 
       // Show result
