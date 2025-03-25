@@ -12,7 +12,7 @@ app = Flask(__name__)
 CORS(app)
 
 def get_db_connection():
-    conn = sqlite3.connect('games.db')
+    conn = sqlite3.connect('db/games.db')
     conn.row_factory = sqlite3.Row  # Enables column access by name
     return conn
 
@@ -40,10 +40,18 @@ def add_sample_data():
 # Add sample data on startup
 #add_sample_data()
 
-# Serve index.html from the same folder
+# Serve index.html
 @app.route('/')
 def home():
-    return send_file('index.html')
+    return send_file('templates/index.html')
+
+@app.route('/styles.css')
+def serve_css():
+    return send_file('static/styles.css')
+
+@app.route('/script.js')
+def serve_js():
+    return send_file('static/script.js')
 
 @app.route('/games', methods=['GET'])
 def get_two_random_games():
@@ -88,7 +96,7 @@ def get_game_date():
 @app.route('/logo.png', methods=['GET'])
 def serve_logo():
     # Serve the 'logo.png' image directly
-    return send_file('logo.png', mimetype='image/png')
+    return send_file('static/logo.png', mimetype='image/png')
 
 
 #if __name__ == '__main__':

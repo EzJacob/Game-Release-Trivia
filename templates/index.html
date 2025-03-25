@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Release Trivia</title>
+  <!-- Link to the favicon image (logo.png in the same folder as index.html) -->
+  <link rel="icon" href="../static/logo.png" type="image/png">
+  <link rel="stylesheet" type="text/css" href="../static/styles.css">
+</head>
+
+<body>
+  <div id="start-screen">
+    <h1>Game Release Trivia</h1>
+    <p id="best-score-display">Best score: 0</p>
+    <button onclick="startGame()">Start Game</button>
+  </div>
+
+  <div id="game-screen" class="hidden">
+    <h1>Game Release Trivia</h1>
+    <p>Which game was released earlier?</p>
+    <p>Score: <span id="score">0</span></p>
+
+    <div class="game-container">
+      <div class="game-item" id="game1" onclick="guess(true)">
+        <p id="game1-title"></p>
+        <p id="game1-date" class="hidden"></p>
+        <img id="game1-img" src="" alt="Game 1 Cover">
+      </div>
+
+      <div class="game-item" id="game2" onclick="guess(false)">
+        <p id="game2-title"></p>
+        <p id="game2-date" class="hidden"></p>
+        <img id="game2-img" src="" alt="Game 2 Cover">
+      </div>
+    </div>
+
+    <p id="result"></p>
+  </div>
+
+  <div id="end-screen" class="hidden">
+    <h1>Game Over</h1>
+    <p>Your score: <span id="final-score"></span></p>
+    <p>Best score: <span id="best-score"></span></p>
+    <button onclick="startGame()">Play Again</button>
+  </div>
+
+  <script src="../static/script.js"></script>
+</body>
+</html>

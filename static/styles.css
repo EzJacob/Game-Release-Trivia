@@ -1,0 +1,135 @@
+ body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+      background-color: #2c2c2c;
+      color: white;
+      overflow: hidden;
+    }
+
+    .correct-indicator, .incorrect-indicator {
+      font-size: 100px;
+      font-weight: bold;
+      text-align: center;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-family: Arial, sans-serif;
+      margin: 20px auto;
+    }
+  
+    .correct-indicator {
+      background-color: green;
+    }
+  
+    .incorrect-indicator {
+      background-color: red;
+    }
+
+    .hidden { display: none; }
+
+    .game-container {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      height: 70vh;
+      position: relative;
+    }
+
+    .game-item {
+      width: 40%;
+      cursor: pointer;
+      transition: opacity 2s ease-in-out, transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+      //transition: opacity 0.5s ease-in-out;
+      opacity: 1; /* Ensure full opacity when displayed */
+    }
+
+    .game-item:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+    }
+
+    /* Mobile-specific styles to remove hover effect */
+    @media (max-width: 768px) {
+      
+      .game-item:hover {
+        transform: none;
+        box-shadow: none;
+      }
+      
+       /* Resize and reposition indicators for mobile */
+      .correct-indicator, .incorrect-indicator {
+        transform: scale(0.5); /* Reduce size by 50% */
+        top: 20%; /* Adjust position upwards */
+      }
+      
+    }
+
+    img {
+      width: 100%;
+      max-height: 60vh;
+      object-fit: contain;
+      margin-bottom: 10px;
+      border-radius: 10px;
+    }
+
+    h1 { margin-bottom: 10px; }
+
+    #score {
+      font-size: 2em;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    #best-score-display {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+    }
+
+    #result {
+      font-size: 2em;
+      font-weight: bold;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+    }
+
+    .correct { color: green; }
+    .incorrect { color: red; }
+
+/* Beautiful Button Styling */
+  button {
+    background-color: #1e3a8a; /* Dark blue */
+    border: none;
+    color: white;
+    padding: 15px 30px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-radius: 50px; /* Rounded edges */
+    cursor: pointer;
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+    outline: none; /* Removes the outline when clicked */
+  }
+
+  /* Hover Effect */
+  button:hover {
+    background-color: #3b82f6; /* Lighter blue when hovered */
+    transform: translateY(-2px); /* Slight lift effect */
+  }
+
+  /* Active Effect */
+  button:active {
+    transform: translateY(2px); /* Simulate button press by pushing it down */
+  }
+
+  /* Focus Effect */
+  button:focus {
+    outline: none; /* Remove outline on focus */
+    border: 2px solid #fff; /* Optional: Add a border when the button is focused */
+  }
