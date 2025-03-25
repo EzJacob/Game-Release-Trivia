@@ -47,11 +47,11 @@ def home():
 
 @app.route('/styles.css')
 def serve_css():
-    return send_file('static/styles.css')
+    return send_file('static/styles.css', mimetype='text/css')
 
 @app.route('/script.js')
 def serve_js():
-    return send_file('static/script.js')
+    return send_file('static/script.js', mimetype='application/javascript')
 
 @app.route('/games', methods=['GET'])
 def get_two_random_games():
@@ -99,5 +99,5 @@ def serve_logo():
     return send_file('static/logo.png', mimetype='image/png')
 
 
-#if __name__ == '__main__':
-    #app.run(debug=True)
+if __name__ == '__main__':
+    app.run(debug=True)

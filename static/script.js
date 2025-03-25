@@ -8,6 +8,7 @@ let games = [];
 
     async function fetchGames() {
       try {
+        //const response = await fetch('http://127.0.0.1:5000/games');
         const response = await fetch('https://game-release-trivia.onrender.com/games');
         games = await response.json();
       } catch (error) {
@@ -17,6 +18,7 @@ let games = [];
 
     async function fetchReleaseDate(title) {
       try {
+        //const response = await fetch(`http://127.0.0.1:5000/game-date?title=${encodeURIComponent(title)}`);
         const response = await fetch(`https://game-release-trivia.onrender.com/game-date?title=${encodeURIComponent(title)}`);
         const data = await response.json();
         return data.release_date || null;
@@ -27,6 +29,10 @@ let games = [];
     }
 
     async function startGame() {
+      const game1Container = document.getElementById('game1');
+      const game2Container = document.getElementById('game2');
+      game1Container.style.opacity = "0";
+      game2Container.style.opacity = "0";
       score = 0;
       document.getElementById('score').innerText = score;
       document.getElementById('start-screen').classList.add('hidden');
@@ -42,7 +48,7 @@ let games = [];
       document.getElementById('game2-date').innerText = "";
       document.getElementById('result').innerText = "";
 
-      canGuess = true;
+      canGuess = false;
       
       getRandomGames();
     }
@@ -86,11 +92,21 @@ async function getRandomGames() {
     document.getElementById('game2-title').innerText = game2.name;
     document.getElementById('game2-date').classList.add('hidden');
 
+    // Fade in after image is fully loaded
     setTimeout(() => { game2Container.style.opacity = "1"; }, 500);
   };
 
   document.getElementById('result').innerText = '';
-  canGuess = true;
+
+  const interval = setInterval(() => {
+    const game1Opacity = window.getComputedStyle(game1Container).opacity;
+    const game2Opacity = window.getComputedStyle(game2Container).opacity;
+    
+    if (parseFloat(game1Opacity) > 0.8 && parseFloat(game2Opacity) > 0.8) {
+        clearInterval(interval);
+        canGuess = true;
+    }
+  }, 100);
 }
 
 
