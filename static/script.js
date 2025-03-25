@@ -123,14 +123,13 @@ async function getRandomGames() {
       document.getElementById('game2-date').classList.remove('hidden');
 
       const correct = (isLeft && game1Date <= game2Date) || (!isLeft && game2Date <= game1Date);
-      const resultMessage = correct ? "Correct!" : "Incorrect!";
-      const resultClass = correct ? "correct" : "incorrect";
+      //const resultClass = correct ? "correct" : "incorrect";
       const resultContainer = document.getElementById('result');
 
       if (correct) {
+        resultContainer.innerHTML = `<span class="correct-indicator">✔</span>`;
         score++;
         document.getElementById('score').innerText = score;
-        resultContainer.innerHTML = `<span class="correct-indicator">✔</span>`;
 
         const game1Container = document.getElementById('game1');
         const game2Container = document.getElementById('game2');
@@ -171,9 +170,7 @@ async function getRandomGames() {
           game2DateElement.style.color = 'green';
       }
 
-
-      //document.getElementById('result').innerText = resultMessage;
-      document.getElementById('result').classList.add(resultClass);
+      //document.getElementById('result').classList.add(resultClass);
 
       setTimeout(() => {
         resultContainer.classList.add('hidden');
@@ -181,7 +178,7 @@ async function getRandomGames() {
         document.getElementById('game1-date').classList.add('hidden');
         document.getElementById('game2-date').classList.add('hidden');
         document.getElementById('result').innerText = "";
-        document.getElementById('result').classList.remove(resultClass);
+        //document.getElementById('result').classList.remove(resultClass);
 
         game1Title.style.color = ''; // Reset to default
         game2Title.style.color = ''; // Reset to default
