@@ -14,4 +14,4 @@ Trivia game where players guess which of two random video games was released ear
 ## Currently in Progress  
 - Adding more games to the database.
 - Improving user interface and responsiveness.
-- Addding more stuff thhat I haven't thoughh about yet
+- Addding more stuff that I haven't thought about yet
