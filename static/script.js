@@ -102,7 +102,7 @@ async function getRandomGames() {
     const game1Opacity = window.getComputedStyle(game1Container).opacity;
     const game2Opacity = window.getComputedStyle(game2Container).opacity;
     
-    if (parseFloat(game1Opacity) > 0.8 && parseFloat(game2Opacity) > 0.8) {
+    if (parseFloat(game1Opacity) > 0.5 && parseFloat(game2Opacity) > 0.5) {
         clearInterval(interval);
         canGuess = true;
     }
